@@ -9,4 +9,6 @@ abstract class BattleFieldItem {
     operator fun contains(other: BattleFieldItem): Boolean {
         return other.blockedPoints().intersect(itemPoints()).isNotEmpty()
     }
+
+    abstract fun saveToDb()
 }
