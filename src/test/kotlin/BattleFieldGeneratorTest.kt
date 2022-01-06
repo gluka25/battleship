@@ -1,32 +1,47 @@
-import io.qameta.allure.Step
-import org.amshove.kluent.shouldBeEqualTo
+import configuration.DatabaseSettings
+import org.jetbrains.exposed.sql.SchemaUtils
+import org.jetbrains.exposed.sql.StdOutSqlLogger
+import org.jetbrains.exposed.sql.addLogger
+import org.jetbrains.exposed.sql.transactions.transaction
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
+import repository.entity.Helps
+import repository.entity.Mines
+import repository.entity.Ships
 
 
 class BattleFieldGeneratorTest {
+
+    @BeforeEach
+    fun init() {
+        DatabaseSettings.embedded
+        transaction {
+            addLogger(StdOutSqlLogger)
+            SchemaUtils.drop(Ships, Mines, Helps)
+        }
+    }
+
+    @AfterEach
+    fun teardown() {
+        DatabaseSettings.embedded
+        transaction {
+            addLogger(StdOutSqlLogger)
+            SchemaUtils.drop(Ships, Mines, Helps)
+        }
+    }
+
     @ParameterizedTest(name = "Тест на количество объектов на игровом поле")
     @ValueSource(ints = [34])
     fun `filled cells count test`(count: Int) {
+        val steps = BattleFieldSteps()
         val battleFieldSize = 8
-        val battleField = generateField(battleFieldSize)
-        checkFilledPoints(battleField, count)
+        val battleField = steps.generateField(battleFieldSize)
+        steps.saveToDB(battleField)
+        val battlefieldLoad = steps.restoreFromDB(battleFieldSize)
+        println(battlefieldLoad.toString())
+        steps.checkFilledPoints(battlefieldLoad, count)
     }
 
-    @Step("Генерация игрового поля")
-    private fun generateField(battleFieldSize: Int): BattleField = BattleFieldGenerator(
-        battleFieldSize, 1, 1,
-        listOf(ShipTypeCount(1, 4), ShipTypeCount(2, 4), ShipTypeCount(4, 1)),
-        listOf(ShipTypeCount(1, 4), ShipTypeCount(2, 4), ShipTypeCount(4, 1))
-    ).generateInfo()
-
-    @Step("Проверка числа заполненных ячеек")
-    private fun checkFilledPoints(battleField: BattleField, count: Int) {
-        var actualFilledPoints = 0
-        for (layer in battleField.fieldPoints)
-            for (line in layer)
-                for (point in line)
-                    if (point != null) actualFilledPoints++
-        actualFilledPoints.shouldBeEqualTo(count)
-    }
 }

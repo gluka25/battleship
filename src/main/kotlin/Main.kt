@@ -1,15 +1,9 @@
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory
-import com.googlecode.lanterna.terminal.swing.ScrollingSwingTerminal
-import com.googlecode.lanterna.terminal.swing.SwingTerminalFrame
-import configuration.DatabaseSettings
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 import repository.entity.Helps
 import repository.entity.Mines
-import repository.entity.ShipEntity
 import repository.entity.Ships
-import java.awt.Window
-import javax.swing.JScrollPane
 
 
 fun main(args: Array<String>) {

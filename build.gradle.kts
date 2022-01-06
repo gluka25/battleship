@@ -16,17 +16,17 @@ repositories {
 
 dependencies {
     implementation("org.jetbrains.exposed:exposed:0.17.14")
-    testImplementation(kotlin("test"))
+    implementation("org.xerial:sqlite-jdbc:3.36.0.3")
     implementation("com.googlecode.lanterna:lanterna:3.0.1")
+    testImplementation(kotlin("test"))
     testImplementation("org.amshove.kluent:kluent:1.68")
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.0")
-    implementation("org.xerial:sqlite-jdbc:3.36.0.3")
 }
 
 tasks.test {
     useJUnitPlatform()
     finalizedBy("jacocoTestReport")
-//    finalizedBy("allureServe")
+    finalizedBy("allureServe")
 }
 
 tasks.withType<KotlinCompile>() {
