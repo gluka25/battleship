@@ -4,7 +4,13 @@ import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.StdOutSqlLogger
 import org.jetbrains.exposed.sql.addLogger
 import org.jetbrains.exposed.sql.transactions.transaction
-import repository.entity.*
+import repository.entity.HelpEntity
+import repository.entity.Helps
+import repository.entity.MineEntity
+import repository.entity.Mines
+import repository.entity.ShipEntity
+import repository.entity.Ships
+
 
 class BattleField(battleFieldItems: Collection<BattleFieldItem>, size: Int) : IBattleField {
     private val grid: MutableList<MutableList<MutableList<BattleFieldItem?>>> = mutableListOf()
@@ -25,9 +31,7 @@ class BattleField(battleFieldItems: Collection<BattleFieldItem>, size: Int) : IB
             grid.add(layer)
         }
         for (battleFieldItem in battleFieldItems) {
-            for (point in battleFieldItem.itemPoints()) {
-                grid[point.z][point.y][point.x] = battleFieldItem
-            }
+            addNewItem(battleFieldItem)
         }
     }
 
@@ -39,6 +43,79 @@ class BattleField(battleFieldItems: Collection<BattleFieldItem>, size: Int) : IB
                 }.joinToString(separator = " ")
             }
         }
+    }
+
+
+    fun moveMines() {
+        val mines: MutableSet<Mine> = findMines()
+        for (mine in mines) {
+            val newMine = mine.tryMove(this)
+            this.refresh(mine, newMine)
+        }
+    }
+
+    fun findMines(): MutableSet<Mine> {
+        val mines = mutableSetOf<Mine>()
+        for (layer in fieldPoints) {
+            for (line in layer) {
+                for (item in line) {
+                    if (item is Mine) {
+                        mines.add(item)
+                    }
+                }
+            }
+        }
+        return mines
+    }
+
+    fun findShips(): MutableSet<Ship> {
+        val ships = mutableSetOf<Ship>()
+        for (layer in fieldPoints) {
+            for (line in layer) {
+                for (item in line) {
+                    if (item is Ship) {
+                        ships.add(item)
+                    }
+                }
+            }
+        }
+        return ships
+    }
+
+    fun moveShips() {
+        //var movingShips = mutableSetOf<MovingShip>()
+        val ships = findShips()
+        val movingShips: MutableSet<MovingShip> = ships.filterIsInstance<MovingShip>().toMutableSet()
+//        for (layer in fieldPoints) {
+//            for (line in layer) {
+//                for (item in line) {
+//                    if (item is MovingShip) {
+//                        movingShips.add(item)
+//                    }
+//                }
+//            }
+//        }
+        for (ship in movingShips) {
+            val newShip = ship.tryMove(this)
+            this.refresh(ship, newShip)
+        }
+    }
+
+    fun refresh(item: BattleFieldItem, newItem: BattleFieldItem) {
+        for (point in item.itemPoints()) {
+            grid[point.z][point.y][point.x] = null
+        }
+        addNewItem(newItem)
+    }
+
+    fun addNewItem(newItem: BattleFieldItem) {
+        for (newPoint in newItem.itemPoints()) {
+            grid[newPoint.z][newPoint.y][newPoint.x] = newItem
+        }
+    }
+
+    fun addCrashPoint(point: Point3) {
+        grid[point.z][point.y][point.x] = CrashPoint(Point3(point.x, point.y, point.z))
     }
 }
 
@@ -94,3 +171,11 @@ fun loadFromDB(battlefieldSize: Int): BattleField {
     }
     return BattleField(mines + helps + ships + movingShips, battlefieldSize)
 }
+
+
+fun BattleField.moveItems() {
+    moveMines()
+    moveShips()
+}
+
+

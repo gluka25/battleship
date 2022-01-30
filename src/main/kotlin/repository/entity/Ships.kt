@@ -1,7 +1,12 @@
 package repository.entity
-import org.jetbrains.exposed.dao.*
 
-object Ships: IntIdTable() {
+import org.jetbrains.exposed.dao.EntityID
+import org.jetbrains.exposed.dao.IntEntity
+import org.jetbrains.exposed.dao.IntEntityClass
+import org.jetbrains.exposed.dao.IntIdTable
+
+
+object Ships : IntIdTable() {
     val xFirstPoint = integer("x1")
     val yFirstPoint = integer("y1")
     val zFirstPoint = integer("z1")
@@ -11,8 +16,8 @@ object Ships: IntIdTable() {
     var type = bool("type")
 }
 
-class ShipEntity(id: EntityID<Int>): IntEntity(id) {
-    companion object: IntEntityClass<ShipEntity>(Ships)
+class ShipEntity(id: EntityID<Int>) : IntEntity(id) {
+    companion object : IntEntityClass<ShipEntity>(Ships)
 
     var xFirstPoint by Ships.xFirstPoint
     var yFirstPoint by Ships.yFirstPoint

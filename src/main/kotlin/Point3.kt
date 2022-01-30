@@ -2,7 +2,7 @@ import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
 
-data class Point3(val x: Int, val y: Int, val z: Int)
+data class Point3(var x: Int, var y: Int, var z: Int)
 
 fun Point3.connectionPoints(other: Point3): Collection<Point3> {
     return generateDirectionDiff(other) { it.x }.map { copy(x = it) } +

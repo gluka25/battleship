@@ -1,8 +1,7 @@
-import org.jetbrains.exposed.sql.insert
 import repository.entity.ShipEntity
-import repository.entity.Ships
 
-open class Ship(val firstPoint: Point3, val lastPoint: Point3 = firstPoint) : BattleFieldItem() {
+open class Ship(open val firstPoint: Point3, open val lastPoint: Point3 = firstPoint) : BattleFieldItem() {
+    val crashPoints: MutableSet<Point3> = mutableSetOf()
 
     override val icon: Char = 'S'
 
@@ -20,9 +19,16 @@ open class Ship(val firstPoint: Point3, val lastPoint: Point3 = firstPoint) : Ba
         }
     }
 
+    override fun tryMove(battleField: BattleField): BattleFieldItem {
+        return this
+    }
+
+    override fun addCrashPoint(point: Point3) {
+        crashPoints.add(point)
+    }
+
     override fun toString(): String {
         return "Ship(firstPoint=$firstPoint, lastPoint=$lastPoint)"
     }
-
 
 }

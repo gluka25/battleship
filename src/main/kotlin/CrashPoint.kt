@@ -1,16 +1,19 @@
-import repository.entity.HelpEntity
+import repository.entity.CrashEntity
 
-class Help(private val firstPoint: Point3) : BattleFieldItem() {
-
-    override val icon: Char = 'H'
+class CrashPoint(private val firstPoint: Point3) : BattleFieldItem() {
+    override val icon: Char = 'X'
 
     override fun itemPoints(): Set<Point3> = setOf(firstPoint)
+
+    override fun toString(): String {
+        return "Crash(firstPoint=$firstPoint)"
+    }
+
     override fun saveToDb() {
-        HelpEntity.new {
+        CrashEntity.new {
             x = firstPoint.x
             y = firstPoint.y
             z = firstPoint.z
-
         }
     }
 
@@ -20,9 +23,5 @@ class Help(private val firstPoint: Point3) : BattleFieldItem() {
 
     override fun addCrashPoint(point: Point3) {
         TODO("Not yet implemented")
-    }
-
-    override fun toString(): String {
-        return "Help(firstPoint=$firstPoint)"
     }
 }

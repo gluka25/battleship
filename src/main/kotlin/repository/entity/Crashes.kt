@@ -5,16 +5,16 @@ import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
 import org.jetbrains.exposed.dao.IntIdTable
 
-object Mines : IntIdTable() {
+object Crashes : IntIdTable() {
     val x = integer("x")
     val y = integer("y")
     val z = integer("z")
 }
 
-class MineEntity(id: EntityID<Int>) : IntEntity(id) {
-    companion object : IntEntityClass<MineEntity>(Mines)
+class CrashEntity(id: EntityID<Int>) : IntEntity(id) {
+    companion object : IntEntityClass<CrashEntity>(Crashes)
 
-    var x by Mines.x
-    var y by Mines.y
-    var z by Mines.z
+    var x by Crashes.x
+    var y by Crashes.y
+    var z by Crashes.z
 }

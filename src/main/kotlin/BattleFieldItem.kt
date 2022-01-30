@@ -11,4 +11,7 @@ abstract class BattleFieldItem {
     }
 
     abstract fun saveToDb()
+
+    abstract fun tryMove(battleField: BattleField): BattleFieldItem
+    abstract fun addCrashPoint(point: Point3)
 }
