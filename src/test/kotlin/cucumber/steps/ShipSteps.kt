@@ -1,15 +1,14 @@
 package cucumber.steps
 
-import BattleField
-import BattleFieldGenerator
-import Mine
-import MovingShip
-import Point3
-import Ship
-import ShipTypeCount
+import battlefield.BattleField
+import battlefield.BattleFieldGenerator
+import battlefield.Mine
+import battlefield.MovingShip
+import battlefield.Point3
+import battlefield.Ship
 import io.cucumber.java8.En
 import io.kotest.matchers.collections.shouldHaveAtLeastSize
-import moveItems
+import battlefield.moveItems
 import org.amshove.kluent.`should be in`
 import org.amshove.kluent.shouldBeEqualTo
 import org.amshove.kluent.shouldBeInstanceOf

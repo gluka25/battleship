@@ -1,3 +1,5 @@
+package battlefield
+
 import kotlin.random.Random
 
 object BattlefieldItemGenerator {

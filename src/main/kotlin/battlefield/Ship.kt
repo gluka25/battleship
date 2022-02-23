@@ -1,4 +1,6 @@
-import repository.entity.ShipEntity
+package battlefield
+
+import battlefield.repository.entity.ShipEntity
 
 open class Ship(open val firstPoint: Point3, open val lastPoint: Point3 = firstPoint) : BattleFieldItem() {
     val crashPoints: MutableSet<Point3> = mutableSetOf()
@@ -28,7 +30,7 @@ open class Ship(open val firstPoint: Point3, open val lastPoint: Point3 = firstP
     }
 
     override fun toString(): String {
-        return "Ship(firstPoint=$firstPoint, lastPoint=$lastPoint)"
+        return "battlefield.Ship(firstPoint=$firstPoint, lastPoint=$lastPoint)"
     }
 
 }

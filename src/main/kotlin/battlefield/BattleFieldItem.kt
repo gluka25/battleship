@@ -1,3 +1,5 @@
+package battlefield
+
 abstract class BattleFieldItem {
 
     abstract val icon: Char

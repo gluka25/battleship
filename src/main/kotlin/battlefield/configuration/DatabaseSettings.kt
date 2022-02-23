@@ -1,4 +1,4 @@
-package configuration
+package battlefield.configuration
 
 import org.jetbrains.exposed.sql.Database
 import java.sql.DriverManager

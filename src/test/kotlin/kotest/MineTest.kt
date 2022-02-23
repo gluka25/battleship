@@ -1,6 +1,6 @@
 package kotest
 
-import BattleFieldGenerator
+import battlefield.BattleFieldGenerator
 import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.core.spec.style.FeatureSpec
 import io.kotest.core.spec.style.FunSpec
@@ -19,7 +19,7 @@ class MineTestBehavior : BehaviorSpec({
         val mines = battleField.findMines()
         `when`("Move mine") {
             battleField.moveMines()
-            then("Mine moves one step") {
+            then("battlefield.Mine moves one step") {
                 battleField.findMines().shouldHaveSize(1)
                 battleField.findMines().shouldNotBeEqualTo(mines)
             }

@@ -1,16 +1,16 @@
 package spek
 
-import BattleField
-import BattleFieldGenerator
+import battlefield.BattleField
+import battlefield.BattleFieldGenerator
 import org.amshove.kluent.shouldHaveSize
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.gherkin.Feature
 import org.spekframework.spek2.style.specification.describe
 
 class MineSpekTest : Spek({
-//    lateinit var battleField: BattleField
+//    lateinit var battleField: battlefield.BattleField
     describe("Mines") {
-        it("Mine moves") {
+        it("battlefield.Mine moves") {
             val battleFieldGenerator = BattleFieldGenerator(
                 8, 1, 0,
                 listOf(),
@@ -42,7 +42,7 @@ class MineGherkinTest : Spek({
                 battleField.moveMines()
 
             }
-            Then("Mine moves one step") {
+            Then("battlefield.Mine moves one step") {
                 battleField.findMines().shouldHaveSize(1)
             }
         }

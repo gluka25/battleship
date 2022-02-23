@@ -1,4 +1,6 @@
-import repository.entity.ShipEntity
+package battlefield
+
+import battlefield.repository.entity.ShipEntity
 
 class MovingShip(override var firstPoint: Point3, override var lastPoint: Point3) : Ship(firstPoint, lastPoint) {
 
@@ -77,7 +79,7 @@ class MovingShip(override var firstPoint: Point3, override var lastPoint: Point3
     }
 
     override fun toString(): String {
-        return "MovingShip(firstPoint=$firstPoint, lastPoint=$lastPoint)"
+        return "battlefield.MovingShip(firstPoint=$firstPoint, lastPoint=$lastPoint)"
     }
 
     fun toShip(): Ship {

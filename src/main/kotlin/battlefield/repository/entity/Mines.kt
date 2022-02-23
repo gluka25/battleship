@@ -1,4 +1,4 @@
-package repository.entity
+package battlefield.repository.entity
 
 import org.jetbrains.exposed.dao.EntityID
 import org.jetbrains.exposed.dao.IntEntity

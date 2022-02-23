@@ -1,4 +1,7 @@
+package battlefield
+
 data class ShipTypeCount(val size: Int, val count: Int)
+
 
 class BattleFieldGenerator(
     private val size: Int,
@@ -14,8 +17,8 @@ class BattleFieldGenerator(
     private val helps by lazy { generateHelps() }
 
     fun generateInfo(): BattleField {
-        println("BattleField size: $size")
-        println("BattleField points: $freePoints")
+        println("battlefield.BattleField size: $size")
+        println("battlefield.BattleField points: $freePoints")
         println("Mines: $mines")
         println("Helps: $helps")
         println("Ships: $ships")
@@ -80,6 +83,10 @@ class BattleFieldGenerator(
             }
         }
         return freePoints
+    }
+
+    fun generateBattlefield(itemsRepository: ItemsRepository, battlefieldSize: Int): BattleField {
+        return BattleField(itemsRepository.loadFromDB(), battlefieldSize)
     }
 
 }

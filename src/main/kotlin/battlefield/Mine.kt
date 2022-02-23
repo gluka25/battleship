@@ -1,4 +1,6 @@
-import repository.entity.MineEntity
+package battlefield
+
+import battlefield.repository.entity.MineEntity
 
 class Mine(private val firstPoint: Point3) : BattleFieldItem() {
 
@@ -71,7 +73,7 @@ class Mine(private val firstPoint: Point3) : BattleFieldItem() {
     }
 
     override fun toString(): String {
-        return "Mine(firstPoint=$firstPoint)"
+        return "battlefield.Mine(firstPoint=$firstPoint)"
     }
 
 }

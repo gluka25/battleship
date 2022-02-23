@@ -1,17 +1,13 @@
 package cucumber.steps
 
-import BattleField
-import BattleFieldGenerator
-import Mine
-import ShipTypeCount
+import battlefield.BattleField
+import battlefield.BattleFieldGenerator
+import battlefield.Mine
 import io.cucumber.java8.En
-import io.kotest.matchers.shouldNotHave
 import org.amshove.kluent.shouldBeEqualTo
 import org.amshove.kluent.shouldHaveSize
 import org.amshove.kluent.shouldNotBeEqualTo
-import org.amshove.kluent.shouldNotBeIn
 import kotlin.math.abs
-import kotlin.math.min
 
 class MineSteps : En {
     init {
@@ -32,7 +28,7 @@ class MineSteps : En {
             battleField.moveMines()
         }
 
-        Then("Mine moves one step") {
+        Then("battlefield.Mine moves one step") {
             battleField.findMines().shouldHaveSize(1)
             battleField.findMines().shouldNotBeEqualTo(mines)
             abs(

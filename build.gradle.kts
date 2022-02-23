@@ -19,6 +19,7 @@ dependencies {
     implementation("org.jetbrains.exposed:exposed:0.17.14")
     implementation("org.xerial:sqlite-jdbc:3.36.0.3")
     implementation("com.googlecode.lanterna:lanterna:3.1.1")
+    implementation("org.springframework.boot:spring-boot-starter-web:2.6.3")
     //implementation("io.qameta.allure:allure-cucumber4-jvm:2.17.2")
     testImplementation(kotlin("test"))
     testImplementation("org.amshove.kluent:kluent:1.68")
@@ -29,6 +30,9 @@ dependencies {
     testImplementation("io.kotest:kotest-runner-junit5-jvm:5.1.0")
     testImplementation("org.spekframework.spek2:spek-dsl-jvm:2.0.17")
     testImplementation("org.spekframework.spek2:spek-runner-junit5:2.0.17")
+    testImplementation("org.springframework.boot:spring-boot-starter-test:2.6.3")
+    testImplementation("org.mockito:mockito-inline:4.3.1")
+    testImplementation ("org.mockito.kotlin:mockito-kotlin:4.0.0")
 }
 
 tasks.test {

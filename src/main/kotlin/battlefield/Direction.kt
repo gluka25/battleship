@@ -1,3 +1,5 @@
+package battlefield
+
 interface Direction {
     fun move(point: Point3, size: Int): Point3
 }

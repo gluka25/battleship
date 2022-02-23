@@ -1,17 +1,19 @@
+package battlefield
+
 import com.googlecode.lanterna.terminal.Terminal
-import configuration.DatabaseSettings
+import battlefield.configuration.DatabaseSettings
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.StdOutSqlLogger
 import org.jetbrains.exposed.sql.addLogger
 import org.jetbrains.exposed.sql.transactions.transaction
-import repository.entity.HelpEntity
-import repository.entity.Helps
-import repository.entity.MineEntity
-import repository.entity.Mines
-import repository.entity.ShipEntity
-import repository.entity.Ships
+import battlefield.repository.entity.HelpEntity
+import battlefield.repository.entity.Helps
+import battlefield.repository.entity.MineEntity
+import battlefield.repository.entity.Mines
+import battlefield.repository.entity.ShipEntity
+import battlefield.repository.entity.Ships
 
-
+//@Component
 class BattleField(battleFieldItems: Collection<BattleFieldItem>, size: Int) : IBattleField {
     private val grid: MutableList<MutableList<MutableList<BattleFieldItem?>>> = mutableListOf()
 
@@ -83,13 +85,13 @@ class BattleField(battleFieldItems: Collection<BattleFieldItem>, size: Int) : IB
     }
 
     fun moveShips() {
-        //var movingShips = mutableSetOf<MovingShip>()
+        //var movingShips = mutableSetOf<battlefield.MovingShip>()
         val ships = findShips()
         val movingShips: MutableSet<MovingShip> = ships.filterIsInstance<MovingShip>().toMutableSet()
 //        for (layer in fieldPoints) {
 //            for (line in layer) {
 //                for (item in line) {
-//                    if (item is MovingShip) {
+//                    if (item is battlefield.MovingShip) {
 //                        movingShips.add(item)
 //                    }
 //                }
@@ -102,10 +104,14 @@ class BattleField(battleFieldItems: Collection<BattleFieldItem>, size: Int) : IB
     }
 
     fun refresh(item: BattleFieldItem, newItem: BattleFieldItem) {
+        removeItem(item)
+        addNewItem(newItem)
+    }
+
+    fun removeItem(item: BattleFieldItem) {
         for (point in item.itemPoints()) {
             grid[point.z][point.y][point.x] = null
         }
-        addNewItem(newItem)
     }
 
     fun addNewItem(newItem: BattleFieldItem) {
@@ -137,6 +143,7 @@ fun BattleField.saveToDB() {
                     point?.saveToDb()
     }
 }
+
 
 fun loadFromDB(battlefieldSize: Int): BattleField {
     DatabaseSettings.embedded
