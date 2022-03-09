@@ -3,8 +3,8 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     kotlin("jvm") version "1.5.10"
     application
-    jacoco
-    id("io.qameta.allure") version "2.9.6"
+    //jacoco
+    //id("io.qameta.allure") version "2.9.6"
 }
 
 group = "me.gluka"
@@ -44,16 +44,16 @@ tasks.withType<KotlinCompile>() {
 }
 
 
-tasks.getByName("jacocoTestReport") {
-    dependsOn("test")
-}
+//tasks.getByName("jacocoTestReport") {
+//    dependsOn("test")
+//}
 
-allure {
-    adapter {
-        autoconfigure.set(true)
-        aspectjWeaver.set(true)
-    }
-}
+//allure {
+//    adapter {
+//        autoconfigure.set(true)
+//        aspectjWeaver.set(true)
+//    }
+//}
 
 application {
     mainClass.set("MainKt")
