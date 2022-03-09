@@ -5,7 +5,7 @@ import org.jetbrains.exposed.sql.addLogger
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
 import repository.entity.Helps
@@ -33,17 +33,17 @@ class BattleFieldGeneratorTest {
         }
     }
 
-//    @ParameterizedTest(name = "Тест на количество объектов на игровом поле")
-//    @ValueSource(ints = [34])
-    @Test
-    fun `filled cells count test`() {
+    @Disabled
+    @ParameterizedTest(name = "Тест на количество объектов на игровом поле")
+    @ValueSource(ints = [34])
+    fun `filled cells count test`(count: Int) {
         val steps = BattleFieldSteps()
         val battleFieldSize = 8
         val battleField = steps.generateField(battleFieldSize)
         steps.saveToDB(battleField)
         val battlefieldLoad = steps.restoreFromDB(battleFieldSize)
         println(battlefieldLoad.toString())
-        steps.checkFilledPoints(battlefieldLoad, 34)
+        steps.checkFilledPoints(battlefieldLoad, count)
     }
 
 }
