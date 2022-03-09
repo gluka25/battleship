@@ -44,15 +44,15 @@ tasks.withType<KotlinCompile>() {
     kotlinOptions.jvmTarget = "1.8"
 }
 
-tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
-    reports {
-        xml.required.set(false)
-        html.required.set(true)
-        html.outputLocation.set(file("build/reports/detekt.html"))
-        txt.required.set(false)
-        sarif.required.set(false)
-    }
-}
+//tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
+//    reports {
+//        xml.required.set(false)
+//        html.required.set(true)
+//        html.outputLocation.set(file("build/reports/detekt.html"))
+//        txt.required.set(false)
+//        sarif.required.set(false)
+//    }
+//}
 
 tasks.getByName("jacocoTestReport") {
     dependsOn("test")
