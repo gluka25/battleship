@@ -37,7 +37,7 @@ fun main(args: Array<String>) {
     println(battlefieldLoad.toString())
 
     for (i in 1..gameSteps) {
-        println("---------------------------STEP$i-----------------------------------------------")
+        println("---------------------------STEP$i----------------------------------------------")
         battleField.moveItems()
         println(battleField.toString())
     }
