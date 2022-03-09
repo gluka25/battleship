@@ -4,7 +4,7 @@ plugins {
     kotlin("jvm") version "1.5.10"
     application
     //jacoco
-    //id("io.qameta.allure") version "2.9.6"
+    id("io.qameta.allure") version "2.9.6"
 }
 
 group = "me.gluka"
@@ -48,12 +48,12 @@ tasks.withType<KotlinCompile>() {
 //    dependsOn("test")
 //}
 
-//allure {
-//    adapter {
-//        autoconfigure.set(true)
-//        aspectjWeaver.set(true)
-//    }
-//}
+allure {
+    adapter {
+        autoconfigure.set(true)
+        aspectjWeaver.set(true)
+    }
+}
 
 application {
     mainClass.set("MainKt")
