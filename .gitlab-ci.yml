@@ -1,0 +1,13 @@
+stages:
+  - test
+  - build
+
+test:
+  image: gradle:jdk8
+  script:
+    - gradle test
+
+build:
+  image: gradle:jdk17
+  script:
+    - gradle build
