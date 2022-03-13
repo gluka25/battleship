@@ -36,7 +36,7 @@ tasks.test {
 //        includeEngines = setOf("spek2")
 //    }
     //finalizedBy("jacocoTestReport")
-    //finalizedBy("allureServe")
+    finalizedBy("allureServe")
 }
 
 tasks.withType<KotlinCompile>() {
