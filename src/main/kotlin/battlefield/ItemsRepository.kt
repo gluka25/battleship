@@ -8,8 +8,9 @@ import battlefield.repository.entity.HelpEntity
 import battlefield.repository.entity.MineEntity
 import battlefield.repository.entity.ShipEntity
 import battlefield.repository.entity.Ships
+import org.springframework.stereotype.Component
 
-//@Component
+@Component
 class ItemsRepository : IItemsRepository {
     override fun loadFromDB(): List<BattleFieldItem> {
         DatabaseSettings.embedded

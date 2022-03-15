@@ -85,7 +85,7 @@ class BattleFieldGenerator(
         return freePoints
     }
 
-    fun generateBattlefield(itemsRepository: ItemsRepository, battlefieldSize: Int): BattleField {
+    fun generateBattlefield(itemsRepository: IItemsRepository, battlefieldSize: Int): BattleField {
         return BattleField(itemsRepository.loadFromDB(), battlefieldSize)
     }
 
