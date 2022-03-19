@@ -55,46 +55,37 @@ class BattleField(battleFieldItems: Collection<BattleFieldItem>, size: Int) : IB
     }
 
     fun findMines(): MutableSet<Mine> {
-        val mines = mutableSetOf<Mine>()
-        for (layer in fieldPoints) {
-            for (line in layer) {
-                for (item in line) {
-                    if (item is Mine) {
-                        mines.add(item)
-                    }
-                }
-            }
-        }
-        return mines
-    }
-
-    fun findShips(): MutableSet<Ship> {
-        val ships = mutableSetOf<Ship>()
-        for (layer in fieldPoints) {
-            for (line in layer) {
-                for (item in line) {
-                    if (item is Ship) {
-                        ships.add(item)
-                    }
-                }
-            }
-        }
-        return ships
-    }
-
-    fun moveShips() {
-        //var movingShips = mutableSetOf<MovingShip>()
-        val ships = findShips()
-        val movingShips: MutableSet<MovingShip> = ships.filterIsInstance<MovingShip>().toMutableSet()
+//        val mines = mutableSetOf<Mine>()
 //        for (layer in fieldPoints) {
 //            for (line in layer) {
 //                for (item in line) {
-//                    if (item is MovingShip) {
-//                        movingShips.add(item)
+//                    if (item is Mine) {
+//                        mines.add(item)
 //                    }
 //                }
 //            }
 //        }
+        return fieldPoints.flatMap { it -> it.flatMap { it.toList() } }.filterIsInstance<Mine>().toMutableSet()
+    }
+
+    fun findShips(): MutableSet<Ship> {
+        //var ships = mutableSetOf<Ship>()
+//        for (layer in fieldPoints) {
+//            for (line in layer) {
+//                for (item in line) {
+//                    if (item is Ship) {
+//                        ships.add(item)
+//                    }
+//                }
+//            }
+//        }
+        return fieldPoints.flatMap { it.flatMap { it.toList() } }.filterIsInstance<Ship>().toMutableSet()
+    }
+
+    fun moveShips() {
+        val ships = findShips()
+        val movingShips: MutableSet<MovingShip> = ships.filterIsInstance<MovingShip>().toMutableSet()
+
         for (ship in movingShips) {
             val newShip = ship.tryMove(this)
             this.refresh(ship, newShip)

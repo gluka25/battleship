@@ -8,6 +8,18 @@ Feature: Ships
       | size | countMine | countShips |
       | 8    | 0         | 1          |
 
+  Scenario Outline: Moving ship does not go out of bounds
+    Given Battlefield size <size> with moving ship <x> x <y> y <z> z
+    When Move moving ship
+    Then Moving ships moves one step
+    Examples:
+      | size |x  |y |z |
+      | 8    | 0 |0 |0 |
+      | 8    | 7 |0 |0 |
+      | 8    | 0 |7 |0 |
+      | 8    | 7 |7 |0 |
+      | 8    | 7 |7 |7 |
+
   Scenario Outline: Ships do not move
     Given Battlefield size <size> with <countMine> mines and <countShips> ships
     When Move battleField items

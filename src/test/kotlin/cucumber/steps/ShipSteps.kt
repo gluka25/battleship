@@ -80,6 +80,17 @@ class ShipSteps : En {
             ships = battleField.findShips()
         }
 
+        Given("Battlefield size {int} with moving ship {int} x {int} y {int} z") { int1: Int, int2: Int, int3: Int, int4: Int ->
+            val battleFieldGenerator = BattleFieldGenerator(
+                int1, 0, 0,
+                listOf(),
+                listOf()
+            )
+            battleField = battleFieldGenerator.generateInfo()
+            battleField.addNewItem(MovingShip(Point3(int2, int3, int4), Point3(int2, int3, int4)))
+            ships = battleField.findShips()
+        }
+
         When("Move moving ship") {
             battleField.moveShips()
         }
@@ -110,5 +121,6 @@ class ShipSteps : En {
             battleField.findShips().forEach { it.shouldBeInstanceOf<Ship>() }
             battleField.findShips().forEach { it.shouldNotBeInstanceOf<MovingShip>() }
         }
+
     }
 }
